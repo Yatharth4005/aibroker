@@ -1,9 +1,12 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowUp } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
 
 const riskLevels = ['Low', 'Moderate', 'High'];
 const timeHorizons = ['Short-term (1-2 years)', 'Medium-term (3-5 years)', 'Long-term (5+ years)'];
@@ -111,8 +114,36 @@ const investmentRecommendations = {
 const AIRecommendation = () => {
   const [risk, setRisk] = useState('Moderate');
   const [timeHorizon, setTimeHorizon] = useState('Medium-term (3-5 years)');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const recommendation = investmentRecommendations[risk as keyof typeof investmentRecommendations][timeHorizon];
+
+  const handleGenerateReport = () => {
+    if (!user) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to generate a detailed report",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsGenerating(true);
+    
+    // Simulate loading for better UX
+    setTimeout(() => {
+      setIsGenerating(false);
+      navigate('/report', { 
+        state: { 
+          recommendation,
+          risk,
+          timeHorizon
+        }
+      });
+    }, 1000);
+  };
 
   return (
     <Card className="border-slate-700 bg-slate-900 shadow-lg">
@@ -183,8 +214,12 @@ const AIRecommendation = () => {
         </div>
       </CardContent>
       <CardFooter className="border-t border-slate-800 pt-4">
-        <Button className="w-full bg-finance-teal hover:bg-finance-teal-dark text-white">
-          Generate Detailed Report
+        <Button 
+          className="w-full bg-finance-teal hover:bg-finance-teal-dark text-white"
+          onClick={handleGenerateReport}
+          disabled={isGenerating}
+        >
+          {isGenerating ? "Generating..." : "Generate Detailed Report"}
         </Button>
       </CardFooter>
     </Card>
