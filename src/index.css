@@ -43,6 +43,9 @@
     --sidebar-accent-foreground: 240 5% 90%;
     --sidebar-border: 220 25% 17%;
     --sidebar-ring: 217 91% 60%;
+    
+    --finance-teal: 187 49% 48%;
+    --finance-blue: 215 28% 17%;
   }
 }
 
@@ -77,4 +80,25 @@
 /* CSS for custom tooltip in charts */
 .recharts-tooltip-wrapper .recharts-default-tooltip {
   @apply bg-slate-800 border border-slate-700 shadow-lg !important;
+}
+
+/* Custom CSS utility classes */
+.bg-finance-teal {
+  background-color: hsl(var(--finance-teal));
+}
+
+.text-finance-teal {
+  color: hsl(var(--finance-teal));
+}
+
+.hover\:bg-finance-teal\/90:hover {
+  background-color: hsla(var(--finance-teal), 0.9);
+}
+
+.bg-finance-blue {
+  background-color: hsl(var(--finance-blue));
+}
+
+.text-finance-blue {
+  color: hsl(var(--finance-blue));
 }
