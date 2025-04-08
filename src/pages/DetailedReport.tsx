@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
@@ -17,11 +16,9 @@ const DetailedReport = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   
-  // Parse the state passed from AIRecommendation component
   const { recommendation, risk, timeHorizon } = location.state || {};
   
   useEffect(() => {
-    // If no recommendation data, redirect back to home
     if (!recommendation) {
       toast({
         title: "No report data found",
@@ -32,7 +29,6 @@ const DetailedReport = () => {
       return;
     }
     
-    // Simulate loading
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1000);
@@ -40,7 +36,6 @@ const DetailedReport = () => {
     return () => clearTimeout(timer);
   }, [recommendation, navigate]);
 
-  // Mock historical performance data
   const performanceData = [
     { month: 'Jan', return: 2.3 },
     { month: 'Feb', return: 1.8 },
@@ -56,10 +51,8 @@ const DetailedReport = () => {
     { month: 'Dec', return: 2.9 },
   ];
 
-  // Colors for pie chart
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-  // Create data for pie chart from allocation
   const pieData = recommendation?.allocation.map(item => ({
     name: item.category,
     value: item.percentage,
@@ -225,7 +218,6 @@ const DetailedReport = () => {
   );
 };
 
-// Helper function to get descriptions for ticker symbols
 const getTickerDescription = (ticker: string) => {
   const descriptions: Record<string, string> = {
     'VGIT': 'Vanguard Intermediate-Term Treasury ETF',
@@ -248,7 +240,6 @@ const getTickerDescription = (ticker: string) => {
     'VTV': 'Vanguard Value ETF',
     'EFA': 'iShares MSCI EAFE ETF',
     'VTI': 'Vanguard Total Stock Market ETF',
-    'EFA': 'iShares MSCI EAFE ETF',
     'VWO': 'Vanguard FTSE Emerging Markets ETF',
     'XLK': 'Technology Select Sector SPDR Fund',
     'XLY': 'Consumer Discretionary Select Sector SPDR Fund',
