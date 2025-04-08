@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+        // Custom colors
+        market: {
+          up: '#38A169',
+          down: '#E53E3E',
+          neutral: '#718096'
+        },
+        finance: {
+          blue: {
+            DEFAULT: '#172D4E',
+            light: '#2A4365',
+            dark: '#1A365D'
+          },
+          teal: {
+            DEFAULT: '#38B2AC',
+            light: '#4FD1C5',
+            dark: '#319795'
+          }
+        }
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +103,21 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+        'fade-in': {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' }
+        },
+        'pulse-gentle': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+        'fade-in': 'fade-in 0.5s ease-out',
+        'pulse-gentle': 'pulse-gentle 2s ease-in-out infinite'
 			}
 		}
 	},

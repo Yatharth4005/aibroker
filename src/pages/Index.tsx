@@ -1,12 +1,41 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import React from 'react';
+import Header from '@/components/Header';
+import MarketOverview from '@/components/MarketOverview';
+import TrendingStocks from '@/components/TrendingStocks';
+import GlobalIndicesChart from '@/components/GlobalIndicesChart';
+import FinancialNews from '@/components/FinancialNews';
+import AIRecommendation from '@/components/AIRecommendation';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col">
+      <Header />
+      <main className="flex-1 container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="lg:col-span-2">
+            <MarketOverview />
+          </div>
+          <div>
+            <TrendingStocks />
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <GlobalIndicesChart />
+          <FinancialNews />
+        </div>
+        
+        <div className="mb-6">
+          <AIRecommendation />
+        </div>
+      </main>
+      <footer className="bg-slate-900 border-t border-slate-800 py-4">
+        <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
+          <p>© 2025 SavvyStock Compass. All market data is for demonstration purposes only.</p>
+          <p className="mt-1">Not financial advice. Trading involves risk.</p>
+        </div>
+      </footer>
     </div>
   );
 };
