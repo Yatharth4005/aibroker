@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { ArrowUp, ArrowDown } from 'lucide-react';
+import { ArrowUp, ArrowDown, TrendingUp } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 // Mock data for trending stocks
 const trendingStocks = [
@@ -15,17 +16,28 @@ const trendingStocks = [
 
 const TrendingStocks = () => {
   return (
-    <Card className="border-slate-700 bg-slate-900 shadow-lg">
+    <Card className="border-slate-800 bg-slate-900 shadow-lg h-full">
       <CardHeader className="pb-2">
-        <CardTitle className="text-xl text-white">Trending Stocks</CardTitle>
-        <CardDescription className="text-slate-400">
-          Most active stocks today
-        </CardDescription>
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="text-xl text-white flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-finance-teal" />
+              Trending Stocks
+            </CardTitle>
+            <CardDescription className="text-slate-400">
+              Most active stocks today
+            </CardDescription>
+          </div>
+          <Badge className="bg-slate-800 text-slate-300 hover:bg-slate-700">Live</Badge>
+        </div>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
           {trendingStocks.map((stock) => (
-            <div key={stock.symbol} className="flex items-center p-2 hover:bg-slate-800 rounded-md transition-colors">
+            <div 
+              key={stock.symbol} 
+              className="flex items-center p-2.5 hover:bg-slate-800 rounded-md transition-colors border border-transparent hover:border-slate-700"
+            >
               <div className="w-12 h-12 bg-slate-800 rounded-md flex items-center justify-center mr-3 border border-slate-700">
                 <span className="font-bold text-finance-teal">{stock.symbol}</span>
               </div>
