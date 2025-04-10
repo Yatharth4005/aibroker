@@ -32,7 +32,7 @@ const Index = () => {
       </main>
       <footer className="bg-[#111827] border-t border-slate-800 py-4">
         <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
-          <p>© 2025 AI-Broker. All market data is for demonstration purposes only.</p>
+          <p>© 2025 AIBroker. All market data is for demonstration purposes only.</p>
           <p className="mt-1">Not financial advice. Trading involves risk.</p>
         </div>
       </footer>

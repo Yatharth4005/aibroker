@@ -22,7 +22,7 @@ const Header = () => {
     <header className="flex items-center justify-between px-6 py-4 bg-slate-900 border-b border-slate-700">
       <div className="flex items-center">
         <h1 className="text-2xl font-bold text-white mr-8">
-          <span className="text-finance-teal">Savvy</span>Stock Compass
+          <span className="text-finance-teal">AI</span>Broker
         </h1>
         <div className="relative ml-6 hidden md:block">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-slate-400" />
