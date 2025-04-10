@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ChevronLeft, Download } from 'lucide-react';
@@ -49,7 +48,7 @@ const DetailedReport = () => {
       toast({
         title: "PDF Downloaded",
         description: "Your report has been downloaded successfully",
-        variant: "success",
+        variant: "default",
       });
     } catch (error) {
       console.error("PDF generation failed:", error);
