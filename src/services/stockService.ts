@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 
 export interface StockData {
@@ -14,15 +13,23 @@ export interface StockData {
   sector?: string;
 }
 
+export interface IndexData {
+  symbol: string;
+  name: string;
+  value: string;
+  change: string;
+  isUp: boolean;
+  components?: string[];
+  description?: string;
+}
+
 // Mock API function to fetch trending stocks data
-// In a real app, this would connect to a financial data API
 export const fetchTrendingStocks = async (): Promise<StockData[]> => {
   try {
     // This simulates network latency for demo purposes
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Mock data for trending stocks with additional details
-    // In a real app, this would be replaced with actual API calls
     const trendingStocks: StockData[] = [
       { 
         symbol: 'AAPL', 
@@ -193,6 +200,65 @@ export const fetchStockDetails = async (symbol: string): Promise<StockData | nul
     return stockDetails;
   } catch (error) {
     console.error(`Error fetching details for ${symbol}:`, error);
+    return null;
+  }
+};
+
+// Fetch index data when given a market index symbol
+export const fetchIndexDetails = async (symbol: string): Promise<IndexData | null> => {
+  try {
+    // This simulates network latency for demo purposes
+    await new Promise(resolve => setTimeout(resolve, 800));
+
+    // Mock data for market indices
+    const marketIndices: IndexData[] = [
+      { 
+        symbol: 'SPX', 
+        name: 'S&P 500', 
+        value: '4,781.24', 
+        change: '+0.83%', 
+        isUp: true,
+        components: ['AAPL', 'MSFT', 'AMZN', 'GOOGL', 'META'],
+        description: 'The Standard and Poor\'s 500 is a stock market index tracking the performance of 500 large companies listed on stock exchanges in the United States.'
+      },
+      { 
+        symbol: 'DJI', 
+        name: 'Dow Jones Industrial Average', 
+        value: '38,519.84', 
+        change: '+0.55%', 
+        isUp: true,
+        components: ['AAPL', 'MSFT', 'JPM', 'V', 'HD'],
+        description: 'The Dow Jones Industrial Average is a stock market index of 30 prominent companies listed on stock exchanges in the United States.'
+      },
+      { 
+        symbol: 'IXIC', 
+        name: 'Nasdaq Composite', 
+        value: '15,361.64', 
+        change: '-0.12%', 
+        isUp: false,
+        components: ['AAPL', 'MSFT', 'AMZN', 'GOOGL', 'META', 'NVDA', 'TSLA'],
+        description: 'The Nasdaq Composite is a stock market index that includes almost all stocks listed on the Nasdaq stock exchange.'
+      },
+      { 
+        symbol: 'RUT', 
+        name: 'Russell 2000', 
+        value: '2,027.47', 
+        change: '+1.54%', 
+        isUp: true,
+        components: ['GTLS', 'FNDA', 'ENSG', 'CROX', 'EXPE'],
+        description: 'The Russell 2000 Index is a small-cap stock market index that tracks the performance of the 2,000 smallest companies in the Russell 3000 Index.'
+      }
+    ];
+
+    const indexDetails = marketIndices.find(index => index.symbol === symbol);
+    
+    if (!indexDetails) {
+      return null;
+    }
+    
+    return indexDetails;
+  } catch (error) {
+    console.error(`Error fetching details for index ${symbol}:`, error);
     return null;
   }
 };
