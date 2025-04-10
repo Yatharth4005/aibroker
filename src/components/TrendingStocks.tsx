@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { ArrowUp, ArrowDown, TrendingUp, RefreshCw } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowUp, ArrowDown, TrendingUp, RefreshCw, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,7 @@ const TrendingStocks = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   // Function to load trending stocks
   const loadStocks = async () => {
@@ -57,16 +59,21 @@ const TrendingStocks = () => {
     }
   };
 
+  // Handle click on a stock item to view details
+  const handleStockClick = (symbol: string) => {
+    navigate(`/report?symbol=${symbol}`);
+  };
+
   // Load stocks on component mount
   useEffect(() => {
     loadStocks();
     
-    // Set up an interval to simulate real-time updates every 30 seconds
+    // Set up an interval to simulate real-time updates every 15 seconds (more frequent updates)
     const interval = setInterval(() => {
       if (!refreshing && stocks.length > 0) {
         refreshStocks();
       }
-    }, 30000);
+    }, 15000);
     
     return () => clearInterval(interval);
   }, []);
@@ -85,7 +92,7 @@ const TrendingStocks = () => {
             </CardDescription>
           </div>
           <div className="flex items-center gap-2">
-            <Badge className={`${refreshing ? 'animate-pulse-gentle' : ''} bg-slate-800 text-slate-300 hover:bg-slate-700`}>
+            <Badge className={`${refreshing ? 'animate-pulse' : ''} bg-slate-800 text-slate-300 hover:bg-slate-700`}>
               Live
             </Badge>
             <Button 
@@ -122,7 +129,8 @@ const TrendingStocks = () => {
             {stocks.map((stock) => (
               <div 
                 key={stock.symbol} 
-                className="flex items-center p-2.5 hover:bg-slate-800 rounded-md transition-colors border border-transparent hover:border-slate-700 cursor-pointer"
+                className="flex items-center p-2.5 hover:bg-slate-800 rounded-md transition-colors border border-transparent hover:border-slate-700 cursor-pointer group"
+                onClick={() => handleStockClick(stock.symbol)}
               >
                 <div className="w-12 h-12 bg-slate-800 rounded-md flex items-center justify-center mr-3 border border-slate-700">
                   <span className="font-bold text-finance-teal">{stock.symbol}</span>
@@ -142,6 +150,7 @@ const TrendingStocks = () => {
                     {stock.change}
                   </p>
                 </div>
+                <ExternalLink className="h-4 w-4 ml-2 text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             ))}
           </div>
