@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useToast } from "@/hooks/use-toast";
 
 // Interface for market indices
@@ -22,7 +21,6 @@ const MarketOverview = () => {
     { name: 'Russell 2000', value: '2,027.47', change: '+1.54%', isUp: true, symbol: 'RUT' }
   ]);
   
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   // Function to update market indices with simulated real-time data
@@ -69,11 +67,6 @@ const MarketOverview = () => {
       title: "Index Selected",
       description: `You selected ${index.name}`,
     });
-    
-    // Navigate to the detailed report page with the index symbol
-    if (index.symbol) {
-      navigate(`/report?symbol=${index.symbol}&type=index`);
-    }
   };
 
   return (
@@ -90,8 +83,9 @@ const MarketOverview = () => {
       <CardContent>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {marketIndices.map((index) => (
-            <div 
+            <Link 
               key={index.name} 
+              to={`/report?symbol=${index.symbol}&type=index`}
               className="p-3 bg-slate-800 rounded-lg border border-slate-700 hover:bg-slate-700 cursor-pointer transition-colors"
               onClick={() => handleIndexClick(index)}
             >
@@ -107,7 +101,7 @@ const MarketOverview = () => {
               <p className={`text-sm font-medium ${index.isUp ? 'text-market-up' : 'text-market-down'}`}>
                 {index.change}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </CardContent>
